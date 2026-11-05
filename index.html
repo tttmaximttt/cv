@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-:root{--fg:#3dff74;--dim:rgba(61,255,116,.72);--glow:rgba(61,255,116,.55);--case:#d9cfb6;--case-dark:#bfb395;--case-light:#ece4cf;--ink:#5a5243}
+:root{--fg:#3dff74;--dim:rgba(61,255,116,.72);--glow:rgba(61,255,116,.55);--case:#b3a479;--case-dark:#958760;--case-light:#c6b88f;--ink:#3b3427}
 *{box-sizing:border-box}
 body{margin:0;background:#231d19;font-family:'VT323',monospace}
 a{color:inherit;text-decoration:underline;text-underline-offset:3px}
@@ -40,17 +40,17 @@ section[hidden]{display:none}
 .cursor{animation:blink 1s steps(1) infinite}
 .strip{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:18px 10px 0}
 .badge{font-family:'Press Start 2P',monospace;font-size:12px;color:var(--ink);letter-spacing:1px}
-.turbo{background:var(--ink);color:#e9e1cb;font-family:'Press Start 2P',monospace;font-size:9px;padding:4px 6px;border-radius:3px}
-.slot{width:34px;height:8px;border-radius:4px;background:#b8ac8f;display:inline-block}
+.turbo{background:var(--ink);color:#d6cba8;font-family:'Press Start 2P',monospace;font-size:9px;padding:4px 6px;border-radius:3px}
+.slot{width:34px;height:8px;border-radius:4px;background:#8f825d;display:inline-block}
 .led{width:12px;height:12px;border-radius:50%;background:var(--fg);box-shadow:0 0 10px var(--fg);animation:led 2.4s infinite}
-.neck{width:220px;max-width:40%;height:26px;background:#c3b89d;box-shadow:inset 0 6px 8px rgba(0,0,0,.18)}
+.neck{width:220px;max-width:40%;height:26px;background:#9c8e66;box-shadow:inset 0 6px 8px rgba(0,0,0,.18)}
 .keyboard{width:100%;max-width:1060px;background:var(--case);border-radius:14px 14px 20px 20px;padding:18px 20px 22px;box-shadow:inset 0 -6px 0 var(--case-dark),inset 0 3px 0 var(--case-light),0 20px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:12px}
 .keys{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-.fkey{min-height:52px;min-width:112px;padding:6px 12px;border:0;border-radius:6px;background:#eee7d4;color:#2a2620;box-shadow:0 4px 0 #8a7f68,inset 0 -3px 0 #d6cdb4;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;font-family:'VT323',monospace;transition:transform .06s,box-shadow .06s}
+.fkey{min-height:52px;min-width:112px;padding:6px 12px;border:0;border-radius:6px;background:#cbbf9a;color:#2a2620;box-shadow:0 4px 0 #6e6347,inset 0 -3px 0 #b3a782;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;font-family:'VT323',monospace;transition:transform .06s,box-shadow .06s}
 .fkey:hover{filter:brightness(1.06)}
-.fkey:active,.fkey.pressed{transform:translateY(3px);box-shadow:0 1px 0 #8a7f68}
+.fkey:active,.fkey.pressed{transform:translateY(3px);box-shadow:0 1px 0 #6e6347}
 .fkey:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
-.fkey small{font-size:15px;color:#6b624f}
+.fkey small{font-size:15px;color:#554c39}
 .fkey span{font-size:22px;line-height:1}
 .hint{text-align:center;font-size:18px;color:var(--ink)}
 .footer{margin-top:28px;font-size:18px;color:#a39882;text-align:center}

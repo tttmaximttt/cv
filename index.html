@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Maksym — CV.EXE</title>
-<meta name="description" content="Maksym, software engineer and AI/LLM builder. A CV served from a retro MS-DOS PC.">
+<title>Maksym Radko — CV.EXE</title>
+<meta name="description" content="Maksym Radko, Senior Backend &amp; AI/LLM Engineer. A CV served from a retro MS-DOS PC.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -79,13 +79,15 @@ section[hidden]{display:none}
 | |\/| |  / _ \  | ' / \___ \  \ V / | |\/| |
 | |  | | / ___ \ | . \  ___) |  | |  | |  | |
 |_|  |_|/_/   \_\|_|\_\|____/   |_|  |_|  |_|</pre>
-              <div class="title">SOFTWARE ENGINEER · AI / LLM BUILDER</div>
+              <div class="title">SENIOR BACKEND &amp; AI/LLM ENGINEER</div>
               <div class="stack" style="gap:2px">
                 <div>Checking memory ........ 640K OK (should be enough for anybody)</div>
+                <div>Uptime .................. 10+ YEARS IN PRODUCTION</div>
                 <div>Loading TYPESCRIPT.SYS .. OK</div>
-                <div>Loading LANGCHAIN.DRV ... OK</div>
-                <div>Mounting QDRANT on D: ... OK</div>
+                <div>Loading KAFKA.DRV ....... OK</div>
+                <div>Mounting PGVECTOR on D: . OK</div>
                 <div>Starting MCP.EXE ........ OK</div>
+                <div>Traffic ................. 200M REQ/DAY, NOT SWEATING</div>
                 <div>Coffee level ............ CRITICAL — continuing anyway</div>
               </div>
               <div>Type <b>HELP</b> and press ENTER, or hit an F-key below.</div>
@@ -97,7 +99,7 @@ section[hidden]{display:none}
   ABOUT     who is this guy
   SKILLS    tech stack (TREE /F)
   PROJECTS  DIR of things I built
-  WORK      experience log
+  WORK      experience log (10+ years)
   CONTACT   how to reach me
   COLOR     swap phosphor (green / amber / white)
   CLS       back to boot screen
@@ -107,10 +109,11 @@ section[hidden]{display:none}
           <section data-view="about" hidden>
             <div class="stack-lg">
               <div class="title">TYPE ABOUT.TXT</div>
-              <div>Hi, I'm Maksym — a software engineer who writes TypeScript by day and teaches computers to read documents by night.</div>
-              <div>I build RAG pipelines, MCP servers and agentic AI workflows, and I'm deep into a self-run course to level up as an AI/LLM engineer.</div>
-              <div>At work I live close to Azure infra (App Service, Application Insights, RBAC). At home I run my own Unraid server stack, because renting the cloud is fine but owning a tiny one is more fun.</div>
-              <div class="dim">Location: [YOUR CITY] · Languages: [YOUR LANGUAGES]</div>
+              <div>Hi, I'm Maksym Radko — a senior backend engineer with 10+ years of building high-load distributed systems, now specializing in AI/LLM engineering.</div>
+              <div>By day my systems chew through 180M–200M requests a day for 650K+ active users: Node.js/TypeScript, Kafka, Redis, PostgreSQL and a lot of AWS, held together with CQRS and event-driven design.</div>
+              <div>These days I teach those systems to think: AI agents with tool calling, MCP servers, RAG with hybrid retrieval and reranking, eval pipelines, and self-hosted inference on vLLM. I care about the boring parts too: reliability, latency, cost and observability.</div>
+              <div>At home I run my own Unraid server stack, because renting the cloud is fine but owning a tiny one is more fun.</div>
+              <div class="dim">Languages: English, Ukrainian, Russian</div>
             </div>
           </section>
 
@@ -118,17 +121,21 @@ section[hidden]{display:none}
             <div class="title" style="margin-bottom:8px">TREE C:\SKILLS /F /A</div>
             <div class="pre">C:\SKILLS
 +---LANGUAGES
-|   \---TypeScript · Node.js
+|   \---TypeScript · Node.js · Python · Go
++---BACKEND
+|   +---Distributed systems · CQRS · event-driven
+|   +---Kafka · SQS · Kinesis · RabbitMQ · WebSockets
+|   \---PostgreSQL · Redis · MongoDB
 +---AI_LLM
-|   +---RAG pipelines · embeddings · retrieval
-|   +---LangChain.js · LlamaIndex · smolagents
-|   +---Anthropic SDK · Claude Code · MCP servers
-|   \---Qdrant · ChromaDB · transformers.js
+|   +---AI agents · tool calling · MCP servers
+|   +---RAG · pgvector · hybrid retrieval · reranking
+|   +---LLM evals · structured outputs
+|   \---Hugging Face · vLLM · Bedrock
 +---CLOUD
-|   \---Azure App Service · App Insights · RBAC
+|   \---AWS (Lambda, EKS, EC2) · Kubernetes · Docker
 \---SELF_HOSTED
     \---Unraid · Docker · Nextcloud · WireGuard</div>
-            <div class="dim" style="margin-top:8px">4 folders, 0 bugs (that I know of)</div>
+            <div class="dim" style="margin-top:8px">5 folders, 0 bugs (that I know of)</div>
           </section>
 
           <section data-view="projects" hidden>
@@ -145,8 +152,12 @@ section[hidden]{display:none}
           <section data-view="work" hidden>
             <div class="stack-lg">
               <div class="title">TYPE WORK.LOG</div>
-              <div>[YEAR] – NOW  [ROLE] @ [COMPANY]<div class="dim">  [What you shipped, in one punchy line]</div></div>
-              <div>[YEAR] – [YEAR]  [ROLE] @ [COMPANY]<div class="dim">  [What you shipped, in one punchy line]</div></div>
+              <div>2021 – NOW   Senior Backend Engineer &amp; AI/LLM @ [NDA] (iGaming)<div class="dim">Distributed systems at 180M–200M req/day for 650K+ users. Builds LLM agents that navigate codebases, RAG on pgvector, and eval pipelines for quality, latency and cost.</div></div>
+              <div>2018 – 2021  Senior Node.js Engineer @ pdfFiller<div class="dim">Microservices in Node.js/TypeScript, helped move from Express to NestJS, RabbitMQ events and real-time WebSockets on AWS EKS.</div></div>
+              <div>2016 – 2018  Back-end Developer @ Customertimes Corp<div class="dim">APIs and microservices in Node.js and Go for healthcare logistics, insurance and a social network with GeoJSON maps.</div></div>
+              <div>2014 – 2015  Back-end Developer @ EvoPlay<div class="dim">Gaming platform backends, reporting scripts, and a move from Python/Django to Go microservices.</div></div>
+              <div>2014         Back-end Developer @ itloft (remote)<div class="dim">JSON APIs in Node.js for a photography web app. Where it all began.</div></div>
+              <div>2013 – 2018  Software Engineering @ Kyiv Polytechnic Institute<div class="dim">The degree that came with the job, not before it.</div></div>
               <div class="dim">EOF. Full résumé available on request (no floppy required).</div>
             </div>
           </section>
@@ -156,9 +167,8 @@ section[hidden]{display:none}
               <div class="title" style="margin-bottom:6px">DIAL.EXE</div>
               <div>ATDT ... *kshhhhh-eeeeee-krrrr* ... CONNECT 2400</div>
               <div class="pre" style="margin-top:10px">GITHUB   <a href="https://github.com/tttmaximttt" target="_blank" rel="noopener">github.com/tttmaximttt</a>
-E-MAIL   [YOUR EMAIL]
-LINKEDIN [YOUR LINKEDIN]</div>
-              <div class="dim" style="margin-top:10px">Open to interesting AI engineering problems. Pings answered faster than a 56k modem.</div>
+LINKEDIN <a href="https://www.linkedin.com/in/radko-maksym/" target="_blank" rel="noopener">linkedin.com/in/radko-maksym</a></div>
+              <div class="dim" style="margin-top:10px">Open to senior backend and AI/LLM engineering roles. Pings answered faster than a 56k modem.</div>
             </div>
           </section>
 
@@ -186,7 +196,7 @@ LINKEDIN [YOUR LINKEDIN]</div>
     <div class="keys" id="keys"></div>
     <div class="hint">Click a key, press F1–F7 / ESC, or type in the prompt. No mouse was harmed.</div>
   </div>
-  <div class="footer">© Maksym · Built with 640K of ambition and zero floppies</div>
+  <div class="footer">© Maksym Radko · Built with 640K of ambition and zero floppies</div>
 </div>
 
 <script>

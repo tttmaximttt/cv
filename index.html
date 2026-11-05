@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maksym — CV.EXE</title>
+<meta name="description" content="Maksym, software engineer and AI/LLM builder. A CV served from a retro MS-DOS PC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{--fg:#3dff74;--dim:rgba(61,255,116,.72);--glow:rgba(61,255,116,.55);--case:#d9cfb6;--case-dark:#bfb395;--case-light:#ece4cf;--ink:#5a5243}
+*{box-sizing:border-box}
+body{margin:0;background:#231d19;font-family:'VT323',monospace}
+a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+a:hover,a:focus-visible{background:var(--fg);color:#0a0f0a;text-decoration:none;text-shadow:none;outline:none}
+.page{min-height:100vh;padding:40px 16px 56px;display:flex;flex-direction:column;align-items:center}
+.case{width:100%;max-width:1000px;background:var(--case);border-radius:34px 34px 22px 22px;padding:34px 34px 22px;box-shadow:inset 0 -8px 0 var(--case-dark),inset 0 4px 0 var(--case-light),0 30px 60px rgba(0,0,0,.55)}
+.bezel{background:#2a2723;border-radius:56px/64px;padding:20px;box-shadow:inset 0 0 0 4px #1a1815,inset 0 6px 18px rgba(0,0,0,.7)}
+/* .screen is the fixed glass; .scroll is the part that scrolls, so scanlines and vignette stay put */
+.screen{position:relative;overflow:hidden;background:#070b07;border-radius:46px/58px;color:var(--fg);text-shadow:0 0 6px var(--glow),0 0 1px var(--fg);font-size:23px;line-height:1.25;animation:flick 6s infinite;cursor:text}
+.scroll{min-height:560px;max-height:640px;overflow-y:auto;overflow-x:hidden;padding:38px 44px;scrollbar-width:thin;scrollbar-color:var(--dim) transparent}
+.scroll::-webkit-scrollbar{width:8px}
+.scroll::-webkit-scrollbar-thumb{background:var(--dim);border-radius:4px}
+.screen::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:3;background:repeating-linear-gradient(to bottom,transparent 0,transparent 2px,rgba(0,0,0,.28) 3px,transparent 4px)}
+.screen::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:4;border-radius:inherit;box-shadow:inset 0 0 90px rgba(0,0,0,.95),inset 0 0 24px rgba(0,0,0,.8)}
+.content{position:relative;z-index:2;display:flex;flex-direction:column;gap:14px}
+.dim{color:var(--dim)}
+.title{font-family:'Press Start 2P',monospace;font-size:15px;line-height:1.6}
+.stack{display:flex;flex-direction:column;gap:4px}
+.stack-lg{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.pre{white-space:pre;overflow-x:auto}
+pre.logo{margin:0;font-family:inherit;font-size:19px;line-height:1.05;overflow-x:auto}
+section[hidden]{display:none}
+.prompt{display:flex;align-items:center;margin-top:8px}
+.prompt label{white-space:nowrap}
+.prompt input{flex:1 1 auto;min-width:0;background:transparent;border:0;padding:0;margin:0;font:inherit;color:var(--fg);text-shadow:inherit;caret-color:var(--fg);text-transform:uppercase}
+.prompt input:focus{outline:none}
+.cursor{animation:blink 1s steps(1) infinite}
+.strip{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:18px 10px 0}
+.badge{font-family:'Press Start 2P',monospace;font-size:12px;color:var(--ink);letter-spacing:1px}
+.turbo{background:var(--ink);color:#e9e1cb;font-family:'Press Start 2P',monospace;font-size:9px;padding:4px 6px;border-radius:3px}
+.slot{width:34px;height:8px;border-radius:4px;background:#b8ac8f;display:inline-block}
+.led{width:12px;height:12px;border-radius:50%;background:var(--fg);box-shadow:0 0 10px var(--fg);animation:led 2.4s infinite}
+.neck{width:220px;max-width:40%;height:26px;background:#c3b89d;box-shadow:inset 0 6px 8px rgba(0,0,0,.18)}
+.keyboard{width:100%;max-width:1060px;background:var(--case);border-radius:14px 14px 20px 20px;padding:18px 20px 22px;box-shadow:inset 0 -6px 0 var(--case-dark),inset 0 3px 0 var(--case-light),0 20px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:12px}
+.keys{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.fkey{min-height:52px;min-width:112px;padding:6px 12px;border:0;border-radius:6px;background:#eee7d4;color:#2a2620;box-shadow:0 4px 0 #8a7f68,inset 0 -3px 0 #d6cdb4;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;font-family:'VT323',monospace;transition:transform .06s,box-shadow .06s}
+.fkey:hover{filter:brightness(1.06)}
+.fkey:active,.fkey.pressed{transform:translateY(3px);box-shadow:0 1px 0 #8a7f68}
+.fkey:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.fkey small{font-size:15px;color:#6b624f}
+.fkey span{font-size:22px;line-height:1}
+.hint{text-align:center;font-size:18px;color:var(--ink)}
+.footer{margin-top:28px;font-size:18px;color:#a39882;text-align:center}
+@keyframes flick{0%,47%,49%,93%,100%{opacity:1}48%{opacity:.86}92%{opacity:.94}}
+@keyframes blink{50%{opacity:0}}
+@keyframes led{50%{opacity:.55}}
+@media (max-width:640px){.case{padding:18px 14px 14px}.bezel{padding:10px;border-radius:30px/36px}.screen{font-size:20px;border-radius:24px/30px}.scroll{padding:24px 22px;min-height:460px;max-height:70vh}.fkey{min-width:96px}}
+@media (prefers-reduced-motion:reduce){.screen,.cursor,.led{animation:none}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="case">
+    <div class="bezel">
+      <div class="screen" id="screen">
+        <div class="scroll" id="scroll">
+        <div class="content" aria-live="polite">
+          <div class="row dim"><span>MAKSYM-DOS v6.22 · CV.EXE</span><span>640K OK · TURBO: ON</span></div>
+          <div class="dim" id="echo" hidden></div>
+
+          <section data-view="boot">
+            <div class="stack-lg">
+<pre class="logo" aria-label="MAKSYM">
+ __  __     _     _  __ ____  __   __ __  __
+|  \/  |   / \   | |/ // ___| \ \ / /|  \/  |
+| |\/| |  / _ \  | ' / \___ \  \ V / | |\/| |
+| |  | | / ___ \ | . \  ___) |  | |  | |  | |
+|_|  |_|/_/   \_\|_|\_\|____/   |_|  |_|  |_|</pre>
+              <div class="title">SOFTWARE ENGINEER · AI / LLM BUILDER</div>
+              <div class="stack" style="gap:2px">
+                <div>Checking memory ........ 640K OK (should be enough for anybody)</div>
+                <div>Loading TYPESCRIPT.SYS .. OK</div>
+                <div>Loading LANGCHAIN.DRV ... OK</div>
+                <div>Mounting QDRANT on D: ... OK</div>
+                <div>Starting MCP.EXE ........ OK</div>
+                <div>Coffee level ............ CRITICAL — continuing anyway</div>
+              </div>
+              <div>Type <b>HELP</b> and press ENTER, or hit an F-key below.</div>
+            </div>
+          </section>
+
+          <section data-view="help" hidden>
+            <div class="pre">Available commands:
+  ABOUT     who is this guy
+  SKILLS    tech stack (TREE /F)
+  PROJECTS  DIR of things I built
+  WORK      experience log
+  CONTACT   how to reach me
+  COLOR     swap phosphor (green / amber / white)
+  CLS       back to boot screen
+<span class="dim">Hidden commands exist. Real hackers will find them.</span></div>
+          </section>
+
+          <section data-view="about" hidden>
+            <div class="stack-lg">
+              <div class="title">TYPE ABOUT.TXT</div>
+              <div>Hi, I'm Maksym — a software engineer who writes TypeScript by day and teaches computers to read documents by night.</div>
+              <div>I build RAG pipelines, MCP servers and agentic AI workflows, and I'm deep into a self-run course to level up as an AI/LLM engineer.</div>
+              <div>At work I live close to Azure infra (App Service, Application Insights, RBAC). At home I run my own Unraid server stack, because renting the cloud is fine but owning a tiny one is more fun.</div>
+              <div class="dim">Location: [YOUR CITY] · Languages: [YOUR LANGUAGES]</div>
+            </div>
+          </section>
+
+          <section data-view="skills" hidden>
+            <div class="title" style="margin-bottom:8px">TREE C:\SKILLS /F /A</div>
+            <div class="pre">C:\SKILLS
++---LANGUAGES
+|   \---TypeScript · Node.js
++---AI_LLM
+|   +---RAG pipelines · embeddings · retrieval
+|   +---LangChain.js · LlamaIndex · smolagents
+|   +---Anthropic SDK · Claude Code · MCP servers
+|   \---Qdrant · ChromaDB · transformers.js
++---CLOUD
+|   \---Azure App Service · App Insights · RBAC
+\---SELF_HOSTED
+    \---Unraid · Docker · Nextcloud · WireGuard</div>
+            <div class="dim" style="margin-top:8px">4 folders, 0 bugs (that I know of)</div>
+          </section>
+
+          <section data-view="projects" hidden>
+            <div class="stack-lg">
+              <div class="title">DIR C:\PROJECTS</div>
+              <div><a href="https://github.com/tttmaximttt/simple-rag" target="_blank" rel="noopener">SIMPLE-RAG.EXE</a>  &lt;DIR&gt;<div class="dim">RAG Studio — my own retrieval-augmented generation playground. Ask your docs things.</div></div>
+              <div><a href="https://github.com/tttmaximttt/slop-analyser" target="_blank" rel="noopener">SLOP-ANALYSER.EXE</a>  &lt;DIR&gt;<div class="dim">Sniffs out AI slop so you don't have to.</div></div>
+              <div><a href="https://github.com/tttmaximttt/legacy-necromancer" target="_blank" rel="noopener">LEGACY-NECROMANCER.EXE</a>  &lt;DIR&gt;<div class="dim">Raises legacy code from the dead. Garlic not included.</div></div>
+              <div>CONFLUENCE-SYNC.BAT  &lt;DIR&gt;<div class="dim">Incremental Confluence → vector DB sync with version-based change detection.</div></div>
+              <div class="dim">More on <a href="https://github.com/tttmaximttt" target="_blank" rel="noopener">github.com/tttmaximttt</a></div>
+            </div>
+          </section>
+
+          <section data-view="work" hidden>
+            <div class="stack-lg">
+              <div class="title">TYPE WORK.LOG</div>
+              <div>[YEAR] – NOW  [ROLE] @ [COMPANY]<div class="dim">  [What you shipped, in one punchy line]</div></div>
+              <div>[YEAR] – [YEAR]  [ROLE] @ [COMPANY]<div class="dim">  [What you shipped, in one punchy line]</div></div>
+              <div class="dim">EOF. Full résumé available on request (no floppy required).</div>
+            </div>
+          </section>
+
+          <section data-view="contact" hidden>
+            <div class="stack">
+              <div class="title" style="margin-bottom:6px">DIAL.EXE</div>
+              <div>ATDT ... *kshhhhh-eeeeee-krrrr* ... CONNECT 2400</div>
+              <div class="pre" style="margin-top:10px">GITHUB   <a href="https://github.com/tttmaximttt" target="_blank" rel="noopener">github.com/tttmaximttt</a>
+E-MAIL   [YOUR EMAIL]
+LINKEDIN [YOUR LINKEDIN]</div>
+              <div class="dim" style="margin-top:10px">Open to interesting AI engineering problems. Pings answered faster than a 56k modem.</div>
+            </div>
+          </section>
+
+          <section data-view="color" hidden><div>Phosphor switched to <span id="phos-name">GREEN</span>. Your eyes thank you (probably).</div></section>
+          <section data-view="format" hidden><div class="stack"><div>WARNING: ALL DATA ON DRIVE C: WILL BE LOST!</div><div>Proceed with Format (Y/N)? N</div><div class="dim">Nice try. This CV is read-only.</div></div></section>
+          <section data-view="hire" hidden><div class="stack"><div>HIRE.EXE found! Excellent decision detected.</div><div>Redirecting to CONTACT ... type CONTACT.</div></div></section>
+          <section data-view="error" hidden><div class="stack"><div>Bad command or file name</div><div class="dim">Abort, Retry, Fail? Try HELP.</div></div></section>
+
+          <form class="prompt" id="prompt-form" autocomplete="off">
+            <label for="dos-prompt">C:\CV&gt;&nbsp;</label>
+            <input id="dos-prompt" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" enterkeyhint="go" aria-label="Type a command and press Enter">
+            <span class="cursor" aria-hidden="true">█</span>
+          </form>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="strip">
+      <div style="display:flex;align-items:center;gap:12px"><span class="badge">MAKS/PC 486DX</span><span class="turbo">TURBO</span></div>
+      <div style="display:flex;align-items:center;gap:14px"><span aria-hidden="true" style="display:flex;gap:6px"><span class="slot"></span><span class="slot"></span></span><span class="led" aria-hidden="true"></span><span class="badge" style="font-size:9px">POWER</span></div>
+    </div>
+  </div>
+  <div class="neck" aria-hidden="true"></div>
+  <div class="keyboard">
+    <div class="keys" id="keys"></div>
+    <div class="hint">Click a key, press F1–F7 / ESC, or type in the prompt. No mouse was harmed.</div>
+  </div>
+  <div class="footer">© Maksym · Built with 640K of ambition and zero floppies</div>
+</div>
+
+<script>
+(() => {
+  const PALETTES = {
+    green: { fg: '#3dff74', dim: 'rgba(61,255,116,.72)',  glow: 'rgba(61,255,116,.55)',  name: 'GREEN' },
+    amber: { fg: '#ffb52e', dim: 'rgba(255,181,46,.74)',  glow: 'rgba(255,181,46,.55)',  name: 'AMBER' },
+    white: { fg: '#e6efe9', dim: 'rgba(230,239,233,.72)', glow: 'rgba(230,239,233,.45)', name: 'PAPER WHITE' },
+  };
+  const ORDER = ['green', 'amber', 'white'];
+  const ALIASES = {
+    help: 'help', '?': 'help', about: 'about', whoami: 'about',
+    skills: 'skills', tree: 'skills', projects: 'projects', dir: 'projects', ls: 'projects',
+    work: 'work', experience: 'work', contact: 'contact',
+    cls: 'boot', clear: 'boot', hire: 'hire', 'hire maksym': 'hire',
+  };
+  const KEYS = [
+    ['F1', 'HELP', 'help'], ['F2', 'ABOUT', 'about'], ['F3', 'SKILLS', 'skills'],
+    ['F4', 'PROJECTS', 'projects'], ['F5', 'WORK', 'work'], ['F6', 'CONTACT', 'contact'],
+    ['F7', 'COLOR', 'color'], ['ESC', 'CLS', 'cls'],
+  ];
+
+  const $ = (s) => document.querySelector(s);
+  const echo = $('#echo');
+  const input = $('#dos-prompt');
+  const scroller = $('#scroll');
+  const history = [];
+  let histIdx = 0;
+  let phos = 'green';
+
+  function setPhosphor(name) {
+    phos = name;
+    const p = PALETTES[name];
+    const root = document.documentElement.style;
+    root.setProperty('--fg', p.fg);
+    root.setProperty('--dim', p.dim);
+    root.setProperty('--glow', p.glow);
+    $('#phos-name').textContent = p.name;
+  }
+
+  function show(view, cmd) {
+    document.querySelectorAll('section[data-view]').forEach((s) => { s.hidden = s.dataset.view !== view; });
+    echo.hidden = view === 'boot';
+    echo.textContent = 'C:\\CV> ' + (cmd || '').toUpperCase();
+    scroller.scrollTop = 0;
+  }
+
+  function run(raw) {
+    const cmd = String(raw || '').trim().toLowerCase().replace(/\s+/g, ' ');
+    if (!cmd) return;
+    if (history[history.length - 1] !== cmd) history.push(cmd);
+    histIdx = history.length;
+    if (cmd === 'color') {
+      setPhosphor(ORDER[(ORDER.indexOf(phos) + 1) % ORDER.length]);
+      return show('color', cmd);
+    }
+    let view = ALIASES[cmd];
+    if (!view && cmd.startsWith('format')) view = 'format';
+    show(view || 'error', cmd);
+  }
+
+  const keysEl = $('#keys');
+  const keyButtons = {};
+  KEYS.forEach(([code, label, cmd]) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'fkey';
+    b.innerHTML = `<small>${code}</small><span>${label}</span>`;
+    b.addEventListener('click', () => run(cmd));
+    keysEl.appendChild(b);
+    keyButtons[code === 'ESC' ? 'Escape' : code] = [b, cmd];
+  });
+
+  // Real keyboard F-keys and ESC press the on-screen keys (F5 would otherwise reload the page).
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const hit = keyButtons[e.key];
+    if (!hit) return;
+    e.preventDefault();
+    const [b, cmd] = hit;
+    b.classList.add('pressed');
+    setTimeout(() => b.classList.remove('pressed'), 120);
+    run(cmd);
+    input.value = '';
+  });
+
+  // DOSKEY-style history with the arrow keys.
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp' && history.length) {
+      e.preventDefault();
+      histIdx = Math.max(0, histIdx - 1);
+      input.value = history[histIdx];
+    } else if (e.key === 'ArrowDown' && history.length) {
+      e.preventDefault();
+      histIdx = Math.min(history.length, histIdx + 1);
+      input.value = history[histIdx] || '';
+    }
+  });
+
+  // Clicking anywhere on the glass focuses the prompt, unless the visitor is selecting text or clicking a link.
+  $('#screen').addEventListener('click', (e) => {
+    if (e.target.closest('a') || String(window.getSelection())) return;
+    input.focus({ preventScroll: true });
+  });
+
+  $('#prompt-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    run(input.value);
+    input.value = '';
+  });
+
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) input.focus({ preventScroll: true });
+})();
+</script>
+</body>
+</html>

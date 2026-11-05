@@ -6,8 +6,4 @@ Open `index.html` in a browser, type `HELP` at the `C:\CV>` prompt, or press F1�
 
 ## Commands
 
-`ABOUT`, `SKILLS`, `PROJECTS`, `WORK`, `CONTACT`, `COLOR` (green / amber / white phosphor), `CLS`. Hidden commands exist.
-
-## Hosting
-
-It's a single static file. GitHub Pages: Settings → Pages → Deploy from a branch → `main` / root.
+`ABOUT`, `SKILLS`, `PROJECTS`, `WORK`, `CONTACT`, `COLOR` (green / amber / white phosphor), `SOUND ON`, `CLS`, `EXIT`. Hidden commands exist.

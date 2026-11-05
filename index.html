@@ -56,7 +56,12 @@ section[hidden]{display:none}
 .badge{font-family:'Press Start 2P',monospace;font-size:12px;color:var(--ink);letter-spacing:1px}
 .turbo{background:var(--ink);color:#d6cba8;font-family:'Press Start 2P',monospace;font-size:9px;padding:4px 6px;border-radius:3px}
 .slot{width:34px;height:8px;border-radius:4px;background:#8f825d;display:inline-block}
-.led{width:12px;height:12px;border-radius:50%;background:var(--fg);box-shadow:0 0 10px var(--fg);animation:led 2.4s infinite}
+.frame-btn{width:22px;height:22px;padding:0;border:0;border-radius:50%;cursor:pointer;background:radial-gradient(circle at 35% 30%,var(--case-light),var(--case) 60%,var(--case-dark));box-shadow:0 2px 0 #6e6347,inset 0 -2px 2px rgba(0,0,0,.25),0 0 0 2px rgba(0,0,0,.12)}
+.frame-btn:active,.frame-btn[aria-pressed="true"]{transform:translateY(1px);box-shadow:0 1px 0 #6e6347,inset 0 2px 3px rgba(0,0,0,.35),0 0 0 2px rgba(0,0,0,.12)}
+.frame-btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.snd-led{width:7px;height:7px;border-radius:50%;background:#4a4434;transition:background .15s,box-shadow .15s}
+.snd-led.on{background:#ffb52e;box-shadow:0 0 8px #ffb52e}
+.led{width:12px;height:12px;height:12px;border-radius:50%;background:var(--fg);box-shadow:0 0 10px var(--fg);animation:led 2.4s infinite}
 .neck{width:220px;max-width:40%;height:26px;background:#9c8e66;box-shadow:inset 0 6px 8px rgba(0,0,0,.18)}
 .keyboard{width:100%;max-width:1060px;background:var(--case);border-radius:14px 14px 20px 20px;padding:18px 20px 22px;box-shadow:inset 0 -6px 0 var(--case-dark),inset 0 3px 0 var(--case-light),0 20px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:12px}
 .keys{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
@@ -87,7 +92,7 @@ section[hidden]{display:none}
 @keyframes flick{0%,47%,49%,93%,100%{opacity:1}48%{opacity:.86}92%{opacity:.94}}
 @keyframes blink{50%{opacity:0}}
 @keyframes led{50%{opacity:.55}}
-@media (max-width:640px){.case{padding:18px 14px 14px}.bezel{padding:10px;border-radius:30px/36px}.screen{font-size:20px;border-radius:24px/30px}.scroll{padding:24px 22px;height:520px;height:min(520px,68svh)}.fkey{min-width:96px}}
+@media (max-width:640px){.case{padding:18px 14px 14px}.bezel{padding:10px;border-radius:30px/36px}.screen{font-size:20px;border-radius:24px/30px}.scroll{padding:24px 22px;height:520px;height:min(520px,68svh)}.fkey{min-width:96px}.frame-btn{width:28px;height:28px}}
 @media (prefers-reduced-motion:reduce){.screen,.cursor,.led,.screen.off .scroll,.screen.off .crt-dot{animation:none}.screen.off .scroll{opacity:0}}
 </style>
 </head>
@@ -235,13 +240,13 @@ LINKEDIN <a href="https://www.linkedin.com/in/radko-maksym/" target="_blank" rel
     </div>
     <div class="strip">
       <div style="display:flex;align-items:center;gap:12px"><span class="badge">MAKS/PC 486DX</span><span class="turbo">TURBO</span></div>
-      <div style="display:flex;align-items:center;gap:14px"><span aria-hidden="true" style="display:flex;gap:6px"><span class="slot"></span><span class="slot"></span></span><span class="led" aria-hidden="true"></span><span class="badge" style="font-size:9px">POWER</span></div>
+      <div style="display:flex;align-items:center;gap:14px"><span style="display:flex;align-items:center;gap:7px"><button type="button" class="frame-btn" id="sound-btn" aria-pressed="false" aria-label="Sound" title="Sound on / off"></button><span class="snd-led" id="snd-led" aria-hidden="true"></span><span class="badge" style="font-size:9px">SOUND</span></span><span aria-hidden="true" style="display:flex;gap:6px"><span class="slot"></span><span class="slot"></span></span><span class="led" aria-hidden="true"></span><span class="badge" style="font-size:9px">POWER</span></div>
     </div>
   </div>
   <div class="neck" aria-hidden="true"></div>
   <div class="keyboard">
     <div class="keys" id="keys"></div>
-    <div class="hint">Click a key, press F1–F8 / ESC, or type in the prompt. No mouse was harmed.</div>
+    <div class="hint">Click a key, press F1–F7 / ESC, or type in the prompt. No mouse was harmed.</div>
   </div>
   <div class="footer">© Maksym Radko · Built with 640K of ambition and zero floppies</div>
 </div>
@@ -269,7 +274,7 @@ LINKEDIN <a href="https://www.linkedin.com/in/radko-maksym/" target="_blank" rel
   const KEYS = [
     ['F1', 'HELP', 'help'], ['F2', 'ABOUT', 'about'], ['F3', 'SKILLS', 'skills'],
     ['F4', 'PROJECTS', 'projects'], ['F5', 'WORK', 'work'], ['F6', 'CONTACT', 'contact'],
-    ['F7', 'COLOR', 'color'], ['F8', 'SOUND: OFF', 'sound'], ['ESC', 'CLS', 'cls'],
+    ['F7', 'COLOR', 'color'], ['ESC', 'CLS', 'cls'],
   ];
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -565,7 +570,19 @@ LINKEDIN <a href="https://www.linkedin.com/in/radko-maksym/" target="_blank" rel
     keysEl.appendChild(b);
     keyButtons[code === 'ESC' ? 'Escape' : code] = [b, cmd];
   });
-  function soundLabel() { keyButtons.F8[0].querySelector('span').textContent = soundOn ? 'SOUND: ON' : 'SOUND: OFF'; }
+  // Physical SOUND push button on the monitor frame.
+  const soundBtn = $('#sound-btn');
+  function soundLabel() {
+    soundBtn.setAttribute('aria-pressed', String(soundOn));
+    $('#snd-led').classList.toggle('on', soundOn);
+  }
+  soundBtn.addEventListener('click', () => {
+    soundOn = !soundOn;
+    store.set('cv-sound', soundOn ? 'on' : 'off');
+    $('#sound-state').textContent = soundOn ? 'ON. Speaker warmed up.' : 'OFF. Silence is golden.';
+    soundLabel();
+    if (soundOn) { sfx.click(); sfx.hum(); }
+  });
   soundLabel();
 
   document.addEventListener('keydown', (e) => {
